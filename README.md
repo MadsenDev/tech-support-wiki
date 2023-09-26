@@ -36,8 +36,8 @@ Detailed API documentation is available in the Wiki: [API Documentation](https:/
 
 ## Contributing
 
-Please read [CONTRIBUTING](CONTRIBUTING) for details on how to contribute to this project.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute to this project.
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0. See the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
