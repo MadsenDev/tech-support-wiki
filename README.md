@@ -36,7 +36,7 @@ Detailed API documentation is available in the Wiki: [API Documentation](https:/
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute to this project.
+Please read [CONTRIBUTING](CONTRIBUTING) for details on how to contribute to this project.
 
 ## License
 
