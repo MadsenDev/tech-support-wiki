@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/ranks/rank_permissions';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/ranks/rank_permissions';
 
 // Function to create a new rank-permission relationship
 export const createRankPermission = async (rank_id, permission_id) => {

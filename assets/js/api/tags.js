@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/tags';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/tags';
 
 // Function to create a new tag
 export const createTag = async (name) => {

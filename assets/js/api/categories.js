@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/categories';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/categories';
 
 // Function to fetch categories
 export const fetchCategories = async () => {

@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/themes';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/themes';
 const API_OPTIONS_URL = `${API_BASE_URL}/options`;
 
 // Function to create a new theme

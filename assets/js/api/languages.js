@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/languages';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/languages';
 
 // Function to create a new language
 export const createLanguage = async (language, language_code) => {

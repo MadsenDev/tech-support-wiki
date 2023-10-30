@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/users';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/users';
 
 // Function to fetch users
 export const fetchUsers = async () => {

@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/settings';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/settings';
 
 // Function to create a new setting
 export const createSetting = async (name, value) => {

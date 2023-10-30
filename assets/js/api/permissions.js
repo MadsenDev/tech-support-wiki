@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/permissions/';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/permissions/';
 
 // Function to create a new permission
 export const createPermission = async (name, description) => {

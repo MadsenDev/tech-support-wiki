@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/guides';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/guides';
 
 // Function to create a new guide
 export const createGuide = async (title, creator_id, content, category_id, full_page, tags) => {

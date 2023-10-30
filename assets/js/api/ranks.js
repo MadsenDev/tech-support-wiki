@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/ranks';
+const API_BASE_URL = 'https://api.madsens.dev/tech-support-wiki/ranks';
 
 // Function to create a new rank
 export const createRank = async (title, permissions) => {
