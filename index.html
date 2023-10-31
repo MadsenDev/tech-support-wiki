@@ -1,11 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Unique Wiki</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://auth.madsens.dev/assets/js/authButton.js"></script>
+    <link href="css/global.css" rel="stylesheet" />
+    <style>
+      .top-bar {
+        background: linear-gradient(to right, #b14296, #324bb8);
+        color: white;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Bar -->
+    <div class="top-bar d-flex justify-content-between align-items-center">
+      <img src="assets/logo_white.png" class="small-logo" />
+      <div class="d-flex flex-row">
+        <button class="btn btn-light mx-1 rounded" style="opacity: 0.7">
+          Home
+        </button>
+        <div id="user_info">
+          <div
+            class="madsenDevAuthButton"
+            data-success-url="#success"
+            data-theme="light"
+            data-style="border-radius: 0.4px;"
+            style="opacity: 0.7"
+          ></div>
+        </div>
+      </div>
+    </div>
 
-<body>
-    <script src="assets/js/app.js"></script>
-</body>
+    <!-- Sidebar and Content Wrapper -->
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <div
+        class="border-end bg-light"
+        id="sidebar-wrapper"
+        style="width: 200px"
+      >
+        <div class="list-group list-group-flush">
+          <a
+            class="list-group-item list-group-item-action list-group-item-light p-3"
+            href="#"
+          >
+            <i class="fas fa-desktop"></i> Computers
+          </a>
+          <a
+            class="list-group-item list-group-item-action list-group-item-light p-3"
+            href="#"
+          >
+            <i class="fas fa-mobile-alt"></i> Mobiles
+          </a>
+          <a
+            class="list-group-item list-group-item-action list-group-item-light p-3"
+            href="#"
+          >
+            <i class="fas fa-tablet-alt"></i> Tablets
+          </a>
+          <a
+            class="list-group-item list-group-item-action list-group-item-light p-3"
+            href="#"
+          >
+            <i class="fa-solid fa-clock"></i> Smart Watches
+          </a>
+          <a
+            class="list-group-item list-group-item-action list-group-item-light p-3"
+            href="#"
+          >
+            <i class="fas fa-print"></i> Printers
+          </a>
+          <a
+            class="list-group-item list-group-item-action list-group-item-light p-3"
+            href="#"
+          >
+            <i class="fas fa-box-open"></i> Software
+          </a>
+          <a
+            class="list-group-item list-group-item-action list-group-item-light p-3"
+            href="#"
+          >
+            <i class="fas fa-ellipsis-h"></i> Other
+          </a>
+          <!-- Add more sidebar items here -->
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <h1 class="mt-4">Welcome</h1>
+          <p>This is your unique wiki content area.</p>
+
+          <!-- Add more content here -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // This function will update the page based on authentication status
+      function updatePage(isAuthenticated, role, data) {
+        let userInfoDiv = $("#user_info");
+
+        if (isAuthenticated) {
+          userInfoDiv.html(`<button class="btn btn-light mx-1 rounded" style="opacity: 0.7">${data.username}</button>`);
+          console.log(data);
+          // More UI updates for authenticated users can go here
+        } else {
+          // More UI updates for non-authenticated users can go here
+        }
+      }
+
+      $(document).ready(function () {
+        // Trigger your function here to update the UI or perform other tasks
+        $.ajax({
+                url: "check_auth.php", // Replace with your actual PHP script
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                  updatePage(
+                    response.isAuthenticated,
+                    response.role,
+                    response.data
+                  );
+                },
+                error: function () {
+                  console.log("An error occurred");
+                },
+              });
+        window.addEventListener(
+          "message",
+          function (event) {
+            // Always verify the origin to make sure you're receiving messages only from domains you trust
+            if (event.origin !== "https://auth.madsens.dev") {
+              return;
+            }
+
+            // Check if the message is "loggedIn"
+            if (event.data === "loggedIn") {
+              // Trigger your function here to update the UI or perform other tasks
+              $.ajax({
+                url: "check_auth.php", // Replace with your actual PHP script
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                  updatePage(
+                    response.isAuthenticated,
+                    response.role,
+                    response.data
+                  );
+                },
+                error: function () {
+                  console.log("An error occurred");
+                },
+              });
+            }
+          },
+          false
+        );
+      });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
