@@ -3,6 +3,7 @@ const API_BASE_URL = '/api/categories';
 // Function to fetch categories
 export const fetchCategories = async () => {
   try {
+    console.log('Fetching categories...');
     const response = await fetch(`${API_BASE_URL}/read.php`);
     const data = await response.json();
     return data;
