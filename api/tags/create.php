@@ -1,27 +1,23 @@
 <?php
-// api/tags/create.php
-
-// Include database connection
 include_once '../db.php';
 
-// Get POST data
 $data = json_decode(file_get_contents("php://input"));
 
-// Check if data is valid
-if (!empty($data->name)) {
-    $name = $data->name;
+if(isset($data->name)) {
+    $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($data->name)));
 
-    // Prepare SQL query
-    $query = "INSERT INTO tags (name) VALUES (?)";
+    $query = "INSERT INTO tags (name, slug) VALUES (:name, :slug)";
     $stmt = $db->prepare($query);
 
-    // Execute query
-    if ($stmt->execute([$name])) {
-        echo json_encode(["message" => "Tag was created."]);
+    $stmt->bindParam(":name", $data->name);
+    $stmt->bindParam(":slug", $slug);
+
+    if($stmt->execute()) {
+        echo json_encode(["message" => "Tag created successfully."]);
     } else {
-        echo json_encode(["message" => "Unable to create tag."]);
+        echo json_encode(["message" => "Tag creation failed."]);
     }
 } else {
-    echo json_encode(["message" => "Data is incomplete."]);
+    echo json_encode(["message" => "Invalid data."]);
 }
 ?>

@@ -1,28 +1,24 @@
 <?php
-// api/tags/update.php
-
-// Include database connection
 include_once '../db.php';
 
-// Get POST data
 $data = json_decode(file_get_contents("php://input"));
 
-// Check if ID and name are provided
-if (!empty($data->id) && !empty($data->name)) {
-    $id = $data->id;
-    $name = $data->name;
+if(isset($data->id) && isset($data->name)) {
+    $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($data->name)));
 
-    // Prepare SQL query
-    $query = "UPDATE tags SET name = ? WHERE id = ?";
+    $query = "UPDATE tags SET name = :name, slug = :slug WHERE id = :id";
     $stmt = $db->prepare($query);
 
-    // Execute query
-    if ($stmt->execute([$name, $id])) {
-        echo json_encode(["message" => "Tag was updated."]);
+    $stmt->bindParam(":name", $data->name);
+    $stmt->bindParam(":slug", $slug);
+    $stmt->bindParam(":id", $data->id);
+
+    if($stmt->execute()) {
+        echo json_encode(["message" => "Tag updated successfully."]);
     } else {
-        echo json_encode(["message" => "Unable to update tag."]);
+        echo json_encode(["message" => "Tag update failed."]);
     }
 } else {
-    echo json_encode(["message" => "Data is incomplete."]);
+    echo json_encode(["message" => "Invalid data."]);
 }
 ?>
