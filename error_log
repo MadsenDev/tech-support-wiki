@@ -1,0 +1,79 @@
+[23-Feb-2024 17:06:52 UTC] PHP Warning:  include(partials/sidebar.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/index.php on line 12
+[23-Feb-2024 17:06:52 UTC] PHP Warning:  include(): Failed opening 'partials/sidebar.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/index.php on line 12
+[23-Feb-2024 17:07:57 UTC] PHP Warning:  include(partials/sidebar.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/index.php on line 12
+[23-Feb-2024 17:07:57 UTC] PHP Warning:  include(): Failed opening 'partials/sidebar.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/index.php on line 12
+[23-Feb-2024 17:10:13 UTC] PHP Warning:  include(partials/sidebar.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/index.php on line 12
+[23-Feb-2024 17:10:13 UTC] PHP Warning:  include(): Failed opening 'partials/sidebar.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/index.php on line 12
+[23-Feb-2024 17:10:24 UTC] PHP Warning:  include(partials/sidebar.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/index.php on line 12
+[23-Feb-2024 17:10:24 UTC] PHP Warning:  include(): Failed opening 'partials/sidebar.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/index.php on line 12
+[23-Feb-2024 17:17:32 UTC] PHP Warning:  require(/router.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/index.php on line 7
+[23-Feb-2024 17:17:32 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/router.php' (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/madsyrnh/wiki.madsens.dev/index.php on line 7
+[23-Feb-2024 17:18:14 UTC] PHP Warning:  include(/partials/header.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/index.php on line 10
+[23-Feb-2024 17:18:14 UTC] PHP Warning:  include(): Failed opening '/partials/header.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/index.php on line 10
+[23-Feb-2024 17:18:14 UTC] PHP Warning:  include(partials/sidebar.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/index.php on line 15
+[23-Feb-2024 17:18:14 UTC] PHP Warning:  include(): Failed opening 'partials/sidebar.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/index.php on line 15
+[23-Feb-2024 17:18:14 UTC] PHP Warning:  include(/partials/footer.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/index.php on line 28
+[23-Feb-2024 17:18:14 UTC] PHP Warning:  include(): Failed opening '/partials/footer.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/index.php on line 28
+[23-Feb-2024 17:22:22 UTC] PHP Warning:  include(partials/sidebar.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/index.php on line 15
+[23-Feb-2024 17:22:22 UTC] PHP Warning:  include(): Failed opening 'partials/sidebar.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/index.php on line 15
+[23-Feb-2024 17:26:22 UTC] PHP Warning:  Undefined array key "lang" in /home/madsyrnh/wiki.madsens.dev/index.php on line 6
+[23-Feb-2024 17:26:22 UTC] PHP Warning:  Undefined array key "path" in /home/madsyrnh/wiki.madsens.dev/index.php on line 7
+[25-Feb-2024 21:44:55 UTC] PHP Warning:  include_once(config.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:44:55 UTC] PHP Warning:  include_once(): Failed opening 'config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:44:55 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "DB_HOST" in /home/madsyrnh/wiki.madsens.dev/api/db.php:5
+Stack trace:
+#0 /home/madsyrnh/wiki.madsens.dev/router.php(3): require()
+#1 /home/madsyrnh/wiki.madsens.dev/index.php(4): require('/home/madsyrnh/...')
+#2 {main}
+  thrown in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 5
+[25-Feb-2024 21:45:23 UTC] PHP Warning:  include_once(config.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:45:23 UTC] PHP Warning:  include_once(): Failed opening 'config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:45:23 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "DB_HOST" in /home/madsyrnh/wiki.madsens.dev/api/db.php:5
+Stack trace:
+#0 /home/madsyrnh/wiki.madsens.dev/router.php(3): require()
+#1 /home/madsyrnh/wiki.madsens.dev/index.php(4): require('/home/madsyrnh/...')
+#2 {main}
+  thrown in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 5
+[25-Feb-2024 21:45:51 UTC] PHP Warning:  include_once(config.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:45:51 UTC] PHP Warning:  include_once(): Failed opening 'config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:45:51 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "DB_HOST" in /home/madsyrnh/wiki.madsens.dev/api/db.php:5
+Stack trace:
+#0 /home/madsyrnh/wiki.madsens.dev/router.php(3): require()
+#1 /home/madsyrnh/wiki.madsens.dev/index.php(4): require('/home/madsyrnh/...')
+#2 {main}
+  thrown in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 5
+[25-Feb-2024 21:46:41 UTC] PHP Warning:  include_once(config.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:46:41 UTC] PHP Warning:  include_once(): Failed opening 'config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:46:41 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "DB_HOST" in /home/madsyrnh/wiki.madsens.dev/api/db.php:5
+Stack trace:
+#0 /home/madsyrnh/wiki.madsens.dev/router.php(3): require()
+#1 /home/madsyrnh/wiki.madsens.dev/index.php(4): require('/home/madsyrnh/...')
+#2 {main}
+  thrown in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 5
+[25-Feb-2024 21:47:08 UTC] PHP Warning:  include_once(config.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:47:08 UTC] PHP Warning:  include_once(): Failed opening 'config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:47:08 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "DB_HOST" in /home/madsyrnh/wiki.madsens.dev/api/db.php:5
+Stack trace:
+#0 /home/madsyrnh/wiki.madsens.dev/router.php(3): require()
+#1 /home/madsyrnh/wiki.madsens.dev/index.php(4): require('/home/madsyrnh/...')
+#2 {main}
+  thrown in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 5
+[25-Feb-2024 21:47:12 UTC] PHP Warning:  include_once(config.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:47:12 UTC] PHP Warning:  include_once(): Failed opening 'config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:47:12 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "DB_HOST" in /home/madsyrnh/wiki.madsens.dev/api/db.php:5
+Stack trace:
+#0 /home/madsyrnh/wiki.madsens.dev/router.php(3): require()
+#1 /home/madsyrnh/wiki.madsens.dev/index.php(4): require('/home/madsyrnh/...')
+#2 {main}
+  thrown in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 5
+[25-Feb-2024 21:50:01 UTC] PHP Warning:  include_once(config.php): Failed to open stream: No such file or directory in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:50:01 UTC] PHP Warning:  include_once(): Failed opening 'config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 2
+[25-Feb-2024 21:50:01 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "DB_HOST" in /home/madsyrnh/wiki.madsens.dev/api/db.php:5
+Stack trace:
+#0 /home/madsyrnh/wiki.madsens.dev/router.php(3): require()
+#1 /home/madsyrnh/wiki.madsens.dev/index.php(4): require('/home/madsyrnh/...')
+#2 {main}
+  thrown in /home/madsyrnh/wiki.madsens.dev/api/db.php on line 5

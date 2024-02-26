@@ -4,15 +4,17 @@ require '../db.php'; // Adjust the path as necessary
 
 header('Content-Type: application/json');
 
-$categoryName = isset($_GET['name']) ? $_GET['name'] : '';
+// Change the request to expect a 'slug' parameter instead of 'name'
+$categorySlug = isset($_GET['slug']) ? $_GET['slug'] : '';
 
-if (!$categoryName) {
-    echo json_encode(['success' => false, 'message' => 'Category name is required']);
+if (!$categorySlug) {
+    echo json_encode(['success' => false, 'message' => 'Category slug is required']);
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT * FROM categories WHERE name = :name LIMIT 1");
-$stmt->execute(['name' => $categoryName]);
+// Update the query to select the category by 'slug' instead of 'name'
+$stmt = $pdo->prepare("SELECT * FROM categories WHERE slug = :slug LIMIT 1");
+$stmt->execute(['slug' => $categorySlug]);
 $category = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($category) {

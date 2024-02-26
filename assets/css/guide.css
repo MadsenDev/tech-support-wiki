@@ -1,0 +1,45 @@
+/* Assuming guideContent is the container for your Markdown-converted content */
+#guideContent h1 {
+    font-size: 2.25rem; /* Tailwind's text-3xl */
+    margin-bottom: 0.75rem; /* Tailwind's mb-3 */
+}
+
+#guideContent h2 {
+    font-size: 1.875rem; /* Tailwind's text-2xl */
+    margin-bottom: 0.5rem; /* Tailwind's mb-2 */
+}
+
+#guideContent h3 {
+    font-size: 1.5rem; /* Tailwind's text-xl */
+    margin-bottom: 0.5rem; /* Tailwind's mb-2 */
+}
+
+#guideContent a {
+    color: #3b82f6; /* Tailwind's blue-500 */
+    text-decoration: underline; /* Tailwind's underline */
+    transition: color 0.2s; /* Smooth transition for hover effect */
+}
+
+#guideContent a:hover {
+    color: #2563eb; /* Tailwind's blue-600 for hover effect */
+}
+
+#guideContent p {
+    margin-bottom: 1rem; /* Tailwind's mb-4 */
+}
+
+/* Additional styles for lists, images, and other elements as needed */
+#guideContent ul,
+#guideContent ol {
+    padding-left: 1.25rem; /* Tailwind's pl-5 */
+    margin-bottom: 1rem; /* Tailwind's mb-4 */
+}
+
+#guideContent ul li {
+    margin-bottom: 0.25rem; /* Tailwind's mb-1 */
+}
+
+#guideContent img {
+    max-width: 100%; /* Ensure images are responsive */
+    height: auto;
+}

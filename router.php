@@ -18,12 +18,21 @@ $lang = in_array($lang, ['en', 'no', 'fr']) ? $lang : $defaultLang;
 $translations = @include "translations/{$lang}.php";
 $translations = $translations ?: [];
 
-// Now, $pathSegments[0] should represent the first content segment (e.g., 'guides') if present
-if (!empty($pathSegments) && $pathSegments[0] === 'guides' && isset($pathSegments[1])) {
-    // The category name would now be the second segment in the original URL structure
-    $categoryName = $pathSegments[1];
-    // Assuming guides are further categorized, and you want to list guides within a category
-    $contentFile = 'categories/list_guides.php';
+// Check for the presence of guide category and guide slugs
+if (!empty($pathSegments) && $pathSegments[0] === 'guides') {
+    if (isset($pathSegments[3])) {
+        // A specific guide within a category is requested
+        $categorySlug = $pathSegments[1]; // The category slug
+        $guideSlug = $pathSegments[3]; // The guide slug
+        $contentFile = 'guides/view_guide.php'; // Script to display a specific guide
+    } elseif (isset($pathSegments[1])) {
+        // Only a category is specified, list guides within this category
+        $categorySlug = $pathSegments[1];
+        $contentFile = 'categories/list_guides.php'; // Script to list guides in a category
+    } else {
+        // General guides page, possibly listing all categories or featured guides
+        $contentFile = 'guides/index.php'; // Script to show general guides page
+    }
 } else {
     // Default routing for home, contact, etc., based on the modified $pathSegments
     switch ($pathSegments[0] ?? '') {
