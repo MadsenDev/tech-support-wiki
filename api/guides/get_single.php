@@ -20,7 +20,7 @@ try {
     $guide = null;
     // Include the author (creator's username) in the SELECT clause
     if ($lang !== 'en') {
-        $stmt = $pdo->prepare("SELECT gt.title, gt.content, g.slug, g.id, u.username AS updater, gu.updated_at, creator.username AS author
+        $stmt = $pdo->prepare("SELECT gt.title, gt.content, g.slug, g.full_page, g.id, u.username AS updater, gu.updated_at, creator.username AS author
                                FROM guide_translations gt
                                INNER JOIN guides g ON gt.guide_id = g.id
                                LEFT JOIN guide_updates gu ON g.id = gu.guide_id

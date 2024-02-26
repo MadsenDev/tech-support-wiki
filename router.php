@@ -42,6 +42,9 @@ if (!empty($pathSegments) && $pathSegments[0] === 'guides') {
         case 'contact':
             $contentFile = 'contact.php';
             break;
+        case 'login':
+            $contentFile = 'auth/login.php';
+            break;
         default:
             $contentFile = '404.php';
             break;

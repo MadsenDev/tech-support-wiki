@@ -33,8 +33,8 @@
                 </div>
                 <!-- Login Button -->
                 <div>
-                    <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                        <i class="fas fa-sign-in-alt mr-2"></i>Login
+                    <a id="loginButton" href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        <i class="fas fa-sign-in-alt mr-2"></i><?php echo $translations['login']; ?>
                     </a>
                 </div>
             </div>
@@ -56,7 +56,7 @@
 </style>
 
 <script>
-    let currentLangCode = 'en'; // Default language code
+    let currentLangCode = null; // Default language code
     document.addEventListener('DOMContentLoaded', function() {
         const currentPath = window.location.pathname.split('/');
         currentLangCode = currentPath[1]; // Assuming language code is the first segment after the host
@@ -64,6 +64,12 @@
         
         if (languagePicker && currentLangCode) {
             languagePicker.value = currentLangCode;
+        }
+
+        // Set login href
+        const loginButton = document.getElementById('loginButton');
+        if (loginButton) {
+            loginButton.href = `/${currentLangCode}/login`;
         }
 
     });

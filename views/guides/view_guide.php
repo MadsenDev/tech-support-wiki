@@ -8,7 +8,7 @@
     </div>
 
     <!-- Sidebar for Navigation and Utilities -->
-    <div class="w-full md:w-1/4 p-6">
+    <div id="guideSidebar" class="w-full md:w-1/4 p-6">
         <div class="sticky top-0">
             <h3 class="font-semibold text-xl mb-4">Guide Tools</h3>
             <!-- Guide Metadata -->
@@ -110,6 +110,11 @@
                 // Update the page content with the guide details
                 document.getElementById('guideTitle').innerText = data.guide.title;
                 document.getElementById('guideContent').innerHTML = data.guide.content; // Use innerHTML since content is in HTML
+
+                if (data.guide.full_page) {
+                    document.getElementById('guideContainer').classList.remove('lg:w-3/4', 'pr-4');
+                    document.getElementById('guideSidebar').classList.add('hidden');
+                }
 
                 // Populate guide metadata
                 document.getElementById('createdBy').textContent = `Created by: ${data.guide.author}`;
