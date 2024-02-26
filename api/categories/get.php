@@ -2,11 +2,22 @@
 
 require '../db.php'; // Adjust the path as necessary to where your db.php is located
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=UTF-8');
+
+// Assuming the language code is passed as a query parameter. Default to 'en' if not specified.
+$lang = isset($_GET['lang']) ? $_GET['lang'] : 'en';
 
 try {
-    // Fetch all categories
-    $stmt = $pdo->query('SELECT * FROM categories ORDER BY parent_id ASC, id ASC');
+    // Modify the query to join with the category_translations table and fetch the translated name and description based on the specified language
+    $sql = "SELECT c.id, c.parent_id, c.slug, 
+                   IFNULL(ct.name, c.name) AS name, 
+                   IFNULL(ct.description, c.description) AS description 
+            FROM categories c
+            LEFT JOIN category_translations ct ON c.id = ct.category_id AND ct.language = :lang
+            ORDER BY c.parent_id ASC, c.id ASC";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['lang' => $lang]);
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Function to build a nested array of categories and sub-categories

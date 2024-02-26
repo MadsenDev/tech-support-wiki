@@ -11,19 +11,16 @@
     <div class="w-full md:w-1/4 p-6">
         <div class="sticky top-0">
             <h3 class="font-semibold text-xl mb-4">Guide Tools</h3>
-            <!-- Language Selection Dropdown -->
-            <div class="mb-4">
-                <label for="language-select" class="block text-sm font-medium text-gray-700">Change Language</label>
-                <select id="language-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option>English</option>
-                    <option>Spanish</option>
-                    <option>French</option>
-                    <!-- More languages as needed -->
-                </select>
+            <!-- Guide Metadata -->
+            <div id="guideMetadata" class="mb-4">
+                <div id="createdBy" class="text-sm font-medium text-gray-700"></div>
+                <div id="createdAt" class="text-sm text-gray-700"></div>
+                <div id="updatedBy" class="text-sm font-medium text-gray-700 mt-2"></div>
+                <div id="updatedAt" class="text-sm text-gray-700"></div>
             </div>
             <!-- Print Button -->
             <div class="mb-4">
-                <button onclick="window.print()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button id="printButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Print Guide
                 </button>
             </div>
@@ -38,6 +35,59 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+
+            const printButton = document.getElementById('printButton');
+            printButton.addEventListener('click', printGuide);
+            // Function to populate guide navigation with hierarchy
+    function populateGuideNavigation() {
+        const guideContent = document.getElementById('guideContent');
+        const navigation = document.getElementById('guideNavigation');
+        // Select both h2 and h3 headings
+        const headings = guideContent.querySelectorAll('h2, h3');
+
+        let lastH2Item = null;
+
+        headings.forEach((heading, index) => {
+            if (heading.tagName.toLowerCase() === 'h2') {
+                // Create an anchor ID and link for h2 headings
+                const anchorId = `section-${index}`;
+                heading.id = anchorId;
+
+                const navItem = document.createElement('li');
+                const navLink = document.createElement('a');
+                navLink.href = `#${anchorId}`;
+                navLink.textContent = heading.textContent;
+                navLink.classList.add('text-blue-500', 'hover:text-blue-700');
+
+                navItem.appendChild(navLink);
+                navigation.appendChild(navItem);
+
+                // Update lastH2Item for subsequent h3s to nest under
+                lastH2Item = navItem;
+            } else if (heading.tagName.toLowerCase() === 'h3' && lastH2Item !== null) {
+                // Handle h3 as a nested list under the last h2 item, if any
+                const anchorId = `subsection-${index}`;
+                heading.id = anchorId;
+
+                // Check if the last H2 item already has a nested list; if not, create it
+                let sublist = lastH2Item.querySelector('ul');
+                if (!sublist) {
+                    sublist = document.createElement('ul');
+                    lastH2Item.appendChild(sublist);
+                }
+
+                const subNavItem = document.createElement('li');
+                const subNavLink = document.createElement('a');
+                subNavLink.href = `#${anchorId}`;
+                subNavLink.textContent = heading.textContent;
+                subNavLink.classList.add('text-blue-400', 'hover:text-blue-600', 'pl-4');
+
+                subNavItem.appendChild(subNavLink);
+                sublist.appendChild(subNavItem);
+            }
+        });
+    }
+
     // Split the pathname by '/' and filter out empty segments
     const pathSegments = window.location.pathname.split('/').filter(segment => segment.trim() !== '');
 
@@ -60,6 +110,19 @@
                 // Update the page content with the guide details
                 document.getElementById('guideTitle').innerText = data.guide.title;
                 document.getElementById('guideContent').innerHTML = data.guide.content; // Use innerHTML since content is in HTML
+
+                // Populate guide metadata
+                document.getElementById('createdBy').textContent = `Created by: ${data.guide.author}`;
+                document.getElementById('createdAt').textContent = `On: ${new Date(data.guide.created_at).toLocaleDateString()}`;
+                if(data.guide.updater && data.guide.updated_at) { // Check if updater information exists
+                    document.getElementById('updatedBy').textContent = `Last updated by: ${data.guide.updater}`;
+                    document.getElementById('updatedAt').textContent = `On: ${new Date(data.guide.updated_at).toLocaleDateString()}`;
+                } else {
+                    document.getElementById('updatedBy').textContent = '';
+                    document.getElementById('updatedAt').textContent = '';
+                }
+
+                populateGuideNavigation(); // Populate the guide navigation based on the content
             } else {
                 document.getElementById('guideTitle').innerText = 'Guide Not Found';
                 document.getElementById('guideContent').innerText = 'The requested guide could not be found.';
@@ -71,4 +134,42 @@
             document.getElementById('guideContent').innerText = 'An error occurred while trying to fetch the guide.';
         });
 });
+
+function printGuide() {
+    const title = document.getElementById('guideTitle').innerHTML;
+    const content = document.getElementById('guideContent').innerHTML;
+
+    // Create a new window or tab
+    const printWindow = window.open('', '_blank');
+
+    // Populate the new window with the title and content, plus any desired styling
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Print Guide</title>
+            <style>
+                body { font-family: Arial, sans-serif; padding: 20px; }
+                h1 { color: #333; }
+                /* Add more styling as needed */
+            </style>
+        </head>
+        <body>
+            <h1>${title}</h1>
+            ${content}
+        </body>
+        </html>
+    `);
+
+    printWindow.document.close(); // Finish writing to the document
+
+    // Wait for the new document to fully load before triggering the print dialog
+    printWindow.onload = function() {
+        printWindow.focus(); // Focus on the new window to ensure the print dialog appears over it
+        printWindow.print(); // Trigger the print dialog
+        printWindow.onafterprint = function() {
+            printWindow.close(); // Close the new window after printing
+        };
+    };
+}
     </script>

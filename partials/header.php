@@ -14,13 +14,22 @@
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="#" class="flex items-center">
+                    <a href="/" class="flex items-center">
                         <img src="/assets/images/handbook_logo.png" alt="Logo" class="h-8 mr-2">
                     </a>
                 </div>
                 <!-- Navigation Links -->
                 <div id="navMenu" class="nav-menu hidden md:flex items-center space-x-4">
                     <!-- Fetch and build categories here -->
+                </div>
+                <!-- Language Picker -->
+                <div class="ml-4 relative">
+                    <select id="languagePicker" class="bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onchange="changeLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="no">Norsk</option>
+                        <option value="es">Español</option>
+                        <!-- Add more languages as needed -->
+                    </select>
                 </div>
                 <!-- Login Button -->
                 <div>
@@ -47,7 +56,18 @@
 </style>
 
 <script>
-    fetch('/api/categories/get.php')
+    let currentLangCode = 'en'; // Default language code
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentPath = window.location.pathname.split('/');
+        currentLangCode = currentPath[1]; // Assuming language code is the first segment after the host
+        const languagePicker = document.getElementById('languagePicker');
+        
+        if (languagePicker && currentLangCode) {
+            languagePicker.value = currentLangCode;
+        }
+
+    });
+    fetch(`/api/categories/get.php?lang=${currentLangCode}`)
         .then(response => response.json())
         .then(data => {
             if (data.success && data.categories) {
@@ -92,4 +112,23 @@
             }
         })
         .catch(error => console.error('Error loading categories:', error));
+
+        function changeLanguage(languageCode) {
+            const currentUrl = window.location.href;
+            const pathArray = currentUrl.split('/');
+            const protocol = pathArray[0];
+            const host = pathArray[2];
+            const newPathArray = pathArray.slice(3); // Remove the first three elements (protocol, "", host)
+            
+            // Check if the first path segment is an existing language code and replace it; if not, add the language code
+            const existingLangCode = /^(en|no|es)$/; // Add to this regex pattern based on your available languages
+            if (existingLangCode.test(newPathArray[0])) {
+                newPathArray[0] = languageCode; // Replace existing language code
+            } else {
+                newPathArray.unshift(languageCode); // Add language code as the first segment
+            }
+
+            const newUrl = `${protocol}//${host}/${newPathArray.join('/')}`;
+            window.location.href = newUrl;
+        }
 </script>

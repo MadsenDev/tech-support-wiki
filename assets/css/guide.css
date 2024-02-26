@@ -43,3 +43,19 @@
     max-width: 100%; /* Ensure images are responsive */
     height: auto;
 }
+
+@media print {
+    body * {
+        display: none; /* Use display: none to remove elements from the flow, fixing the single-page issue */
+    }
+    #guideTitle, #guideContent, #guideContent * {
+        display: block !important; /* Force display of the guide content and its children */
+        visibility: visible !important; /* Ensure visibility */
+    }
+    #guideTitle, #guideContent {
+        position: relative !important; /* Use relative positioning to maintain normal flow */
+        left: 0 !important;
+        top: 0 !important;
+        width: 100%; /* Ensure the content uses the full width */
+    }
+}

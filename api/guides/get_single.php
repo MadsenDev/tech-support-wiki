@@ -17,27 +17,27 @@ if (empty($slug)) {
 }
 
 try {
-    // Adjusted to include content conversion to HTML
     $guide = null;
-    // First, attempt to fetch the guide in the requested language (if not English)
+    // Include the author (creator's username) in the SELECT clause
     if ($lang !== 'en') {
-        $stmt = $pdo->prepare("SELECT gt.title, gt.content, g.slug, g.id, u.username AS updater, gu.updated_at 
+        $stmt = $pdo->prepare("SELECT gt.title, gt.content, g.slug, g.id, u.username AS updater, gu.updated_at, creator.username AS author
                                FROM guide_translations gt
                                INNER JOIN guides g ON gt.guide_id = g.id
                                LEFT JOIN guide_updates gu ON g.id = gu.guide_id
                                LEFT JOIN users u ON gu.updater_id = u.id
+                               LEFT JOIN users creator ON g.creator_id = creator.id
                                WHERE g.slug = :slug AND gt.language = :lang
                                ORDER BY gu.updated_at DESC LIMIT 1");
         $stmt->execute(['slug' => $slug, 'lang' => $lang]);
         $guide = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // If no guide found in the requested language or if the language is English, fetch the English version
     if (empty($guide) || $lang === 'en') {
-        $stmt = $pdo->prepare("SELECT g.title, g.content, g.slug, g.id, u.username AS updater, gu.updated_at 
+        $stmt = $pdo->prepare("SELECT g.title, g.content, g.slug, g.created_at, g.id, u.username AS updater, gu.updated_at, creator.username AS author
                                FROM guides g
                                LEFT JOIN guide_updates gu ON g.id = gu.guide_id
                                LEFT JOIN users u ON gu.updater_id = u.id
+                               LEFT JOIN users creator ON g.creator_id = creator.id
                                WHERE g.slug = :slug
                                ORDER BY gu.updated_at DESC LIMIT 1");
         $stmt->execute(['slug' => $slug]);
