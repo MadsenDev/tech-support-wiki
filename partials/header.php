@@ -42,16 +42,21 @@
     </nav>
 
     <style>
-    /* Additional styling for dropdown menus */
-    .nav-menu .sub-menu {
-        display: none; /* Initially hidden */
-        position: absolute; /* Position absolutely within the relative parent */
-        left: 0; /* Align to the left of the parent item */
-        top: 100%; /* Position just below the parent item */
-        min-width: 100%; /* Minimum width to match the parent item */
+    /* Additional styling for multi-level dropdown menus */
+    .nav-menu .menu-item {
+        position: relative;
     }
-    .nav-menu .menu-item:hover .sub-menu {
-        display: block; /* Show on hover */
+
+    .nav-menu .sub-menu {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        z-index: 1000; /* Ensure the submenu appears above other content */
+    }
+
+    .nav-menu .menu-item:hover > .sub-menu {
+        display: block !important;
     }
 </style>
 
@@ -73,46 +78,45 @@
         }
 
     });
+    function createMenuItem(category, langCode, isNested = false) {
+        const menuItem = document.createElement('div');
+        menuItem.classList.add('group', 'relative', 'menu-item');
+        
+        const menuLink = document.createElement('a');
+        menuLink.href = `/${langCode}/guides/${category.slug}`;
+        menuLink.classList.add('text-gray-300', 'hover:bg-gray-700', 'hover:text-white', 'px-3', 'py-2', 'rounded-md', 'text-sm', 'font-medium', 'inline-block');
+        menuLink.textContent = category.name;
+        menuItem.appendChild(menuLink);
+        
+        if (category.sub_categories && category.sub_categories.length > 0) {
+            const subMenu = document.createElement('div');
+            subMenu.classList.add('hidden', 'group-hover:block', 'bg-gray-700', 'min-w-full', 'rounded-md', 'shadow-lg', 'sub-menu', 'absolute');
+            if (isNested) {
+                // For nested submenus, adjust the position to appear to the right
+                subMenu.style.left = '100%'; // Position to the right of the parent item
+                subMenu.style.top = '0'; // Align the top with the parent item
+            } else {
+                // For top-level submenus, appear directly below the parent item
+                subMenu.style.left = '0';
+                subMenu.style.top = '100%';
+            }
+            category.sub_categories.forEach(subCategory => {
+                const subMenuItem = createMenuItem(subCategory, langCode, true); // Pass true for isNested for subcategories
+                subMenu.appendChild(subMenuItem);
+            });
+            menuItem.appendChild(subMenu);
+        }
+        
+        return menuItem;
+    }
+
     fetch(`/api/categories/get.php?lang=${currentLangCode}`)
         .then(response => response.json())
         .then(data => {
             if (data.success && data.categories) {
                 const navMenu = document.getElementById('navMenu');
-                // Extract the language code from the URL
-                const pathSegments = window.location.pathname.split('/').filter(Boolean);
-                const langCode = pathSegments[0]; // Assuming the first segment is the language code
-
                 data.categories.forEach(category => {
-                    // Main menu item
-                    const menuItem = document.createElement('div');
-                    menuItem.classList.add('group', 'relative');
-                    menuItem.classList.add('menu-item');
-                    
-                    const menuLink = document.createElement('a');
-                    // Prepend the language code to the href
-                    menuLink.href = `/${langCode}/guides/${category.slug}`; // Now includes the language code
-                    menuLink.classList.add('text-gray-300', 'hover:bg-gray-700', 'hover:text-white', 'px-3', 'py-2', 'rounded-md', 'text-sm', 'font-medium', 'inline-block');
-                    menuLink.textContent = category.name;
-                    menuItem.appendChild(menuLink);
-
-                    if (category.sub_categories && category.sub_categories.length > 0) {
-                        // Sub-menu for sub-categories
-                        const subMenu = document.createElement('div');
-                        subMenu.classList.add('absolute', 'group-hover:block', 'bg-gray-700', 'min-w-full', 'rounded-md', 'shadow-lg');
-                        subMenu.classList.add('sub-menu');
-
-                        category.sub_categories.forEach(subCategory => {
-                            const subMenuItem = document.createElement('a');
-                            // Prepend the language code to the sub-category link as well
-                            subMenuItem.href = `/${langCode}/guides/${category.slug}/${subCategory.slug}`;
-                            subMenuItem.classList.add('block', 'px-4', 'py-2', 'text-sm', 'text-gray-300', 'hover:bg-gray-600', 'hover:text-white');
-                            subMenuItem.textContent = subCategory.name;
-                            subMenu.appendChild(subMenuItem);
-                        });
-                        
-                        menuItem.appendChild(subMenu);
-                    }
-
+                    const menuItem = createMenuItem(category, currentLangCode);
                     navMenu.appendChild(menuItem);
                 });
             }

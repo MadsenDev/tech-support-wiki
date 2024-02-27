@@ -127,6 +127,7 @@
                     document.getElementById('updatedAt').textContent = '';
                 }
 
+                fetchAndDisplayTags(data.guide.id); // Fetch and display tags for the guide
                 populateGuideNavigation(); // Populate the guide navigation based on the content
             } else {
                 document.getElementById('guideTitle').innerText = 'Guide Not Found';
@@ -176,5 +177,33 @@ function printGuide() {
             printWindow.close(); // Close the new window after printing
         };
     };
+}
+
+function fetchAndDisplayTags(guideId) {
+    fetch(`/api/tags/get_by_guide.php?guide_id=${guideId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.tags.length > 0) {
+                const tagsContainer = document.createElement('div');
+                tagsContainer.classList.add('mb-4');
+                const tagsTitle = document.createElement('h3');
+                tagsTitle.classList.add('font-semibold', 'text-xl', 'mb-4');
+                tagsTitle.textContent = 'Tags';
+                tagsContainer.appendChild(tagsTitle);
+                
+                const tagsList = document.createElement('ul');
+                tagsList.classList.add('list-disc', 'pl-5');
+                data.tags.forEach(tag => {
+                    const tagItem = document.createElement('li');
+                    tagItem.textContent = tag.name;
+                    tagsList.appendChild(tagItem);
+                });
+                tagsContainer.appendChild(tagsList);
+                
+                // Append the tags container to the sidebar
+                document.getElementById('guideSidebar').appendChild(tagsContainer);
+            }
+        })
+        .catch(error => console.error('Error fetching tags:', error));
 }
     </script>
